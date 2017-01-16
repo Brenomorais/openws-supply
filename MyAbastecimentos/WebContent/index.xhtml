@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+ 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>My Abastecimentos</title>
+	<h:outputStylesheet library="css" name="estilos.css"/>
+</h:head>
+<h:body>
+
+	<div class="header">			
+		<img src="resources/imagens/logo.png" width="64" alt="MyAbastecimento" />
+		<h1>Registro de Abastecimentos.</h1>		
+	</div>
+
+	
+	<h:form id="frm">
+		<h:panelGrid columns="2" id="dados" class="frm">			
+			<h:outputLabel value="Nome do Posto:" />
+			<h:inputText size="50" id="posto" value="#{abastecimentoBean.abastecimento.posto}" />
+			
+			<h:outputLabel value="Veículo:" />
+			<h:inputText size="20" value="#{abastecimentoBean.abastecimento.veiculo}" />
+
+			<h:outputLabel value="Data do Abasteciemnto:" />
+			<h:inputText size="20" id="dataAbastecimento"
+				value="#{abastecimentoBean.abastecimento.dataAbastecimento}">
+				<f:convertDateTime for="dataAbastecimento"
+					timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy" />
+			</h:inputText>
+
+			<h:outputLabel value="Combustivel:" />
+			<h:selectOneMenu id="combustivel"
+				value="#{abastecimentoBean.abastecimento.combustivel}">
+				<f:selectItem itemLabel="Gasolina" itemValue="Gasolina" />
+				<f:selectItem itemLabel="Alcool" itemValue="Alcool" />
+				<f:selectItem itemLabel="Diesel" itemValue="Diesel" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Preço por Litro:" />
+			<h:inputText size="20" id="precoListro"
+				value="#{abastecimentoBean.abastecimento.precoLitro}" />
+
+			<h:outputLabel value="Valor Abastecido:" />
+			<h:inputText size="20" id="valorAbastecido"
+				value="#{abastecimentoBean.abastecimento.valorAbastecido}" />
+
+			<h:outputLabel value="Total de Litros:" />
+			<h:inputText size="20" id="totalLitros"
+				value="#{abastecimentoBean.abastecimento.totalListros}" />
+				
+			<h:outputLabel value="Pagamento:" />
+			<h:selectOneMenu id="pagamento"
+				value="#{abastecimentoBean.abastecimento.pagamento}">
+				<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+				<f:selectItem itemLabel="Cartão" itemValue="Cartão" />				
+			</h:selectOneMenu>
+
+			<h:outputLabel />
+			<h:panelGroup>
+				<h:commandButton value="Novo" action="#{abastecimentoBean.novo()}" styleClass="btNovo"/>
+				<h:commandButton value="Salvar"	action="#{abastecimentoBean.salvar()}" styleClass="btSalvar" />
+			</h:panelGroup>
+
+		</h:panelGrid>
+		
+		<h:panelGroup id="grupoAbastecimento" styleClass="grupo">
+			<h:dataTable value="#{abastecimentoBean.abastecimentos}" var="obj"
+				 styleClass="grid" headerClass="cabecalho" rowClasses="cor-sim, cor-nao">
+				<div class="teste">
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Veículo" />
+					</f:facet>
+					<h:outputText value="#{obj.veiculo}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Combustivel" />
+					</f:facet>
+					<h:outputText value="#{obj.combustivel}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Valor Gasto" />
+					</f:facet>
+					<h:outputText value="#{obj.valorAbastecido}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Preço Litro" />
+					</f:facet>
+					<h:outputText value="#{obj.precoLitro}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Pagamento" />
+					</f:facet>
+					<h:outputText value="#{obj.pagamento}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Litros" />
+					</f:facet>
+					<h:outputText value="#{obj.totalListros}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Data Abastecimento" />
+					</f:facet>
+					<h:outputText value="#{obj.dataAbastecimento}">
+						<f:convertDateTime for="dataAbastecimento"
+							timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Posto de Abastecimento" />
+					</f:facet>
+					<h:outputText value="#{obj.posto}" />
+				</h:column>
+				</div>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Opções" />
+					</f:facet>
+				
+					<h:commandButton value="Editar" styleClass="btEditar"
+						action="#{abastecimentoBean.editar(obj)}" style="width: 80px;">
+						<f:ajax render=":frm:dados" />
+					</h:commandButton>
+					
+					<h:commandButton value="Remover" styleClass="btRemover"
+						action="#{abastecimentoBean.remover(obj)}" style="width: 80px;">
+						<f:ajax render=":frm:grupoAbastecimento" />
+					</h:commandButton>
+				</h:column>
+
+			</h:dataTable>
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>
