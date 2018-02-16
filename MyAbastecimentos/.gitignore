@@ -1,8 +1,0 @@
-*.class
-Servers/*
-.metadata
-.settings
-.classpath
-.project
-RemoteSystemsTempFiles/*
-*/bin/
