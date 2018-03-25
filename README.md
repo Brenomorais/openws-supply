@@ -1,4 +1,8 @@
-# App Web simples Openws
+# Project Java Web
 
-Utilizando o heroku como database para salvar os dados em json
-e consumir a api para exibição dos dados que foram salvos.
+Projeto utilizando o OpenWs como repositório de objetos JSON
+e consumindo dados da api rest para exibição dos dados.
+
+* JSF 2
+* Bootstrap
+* OpenWS
